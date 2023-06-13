@@ -62,12 +62,12 @@ class SearchableDropdown<T> extends StatefulWidget {
     Widget? trailingClearIcon,
     Widget? leadingIcon,
     void Function(T?)? onChanged,
+    T? value,
     bool isEnabled = true,
     VoidCallback? disabledOnTap,
     Duration? changeCompletionDelay,
     double? width,
     bool isDialogExpanded = true,
-    SearchableDropdownMenuItem<T>? initialValue,
   }) : this._(
           key: key,
           paginatedRequest: paginatedRequest,
@@ -83,11 +83,11 @@ class SearchableDropdown<T> extends StatefulWidget {
           leadingIcon: leadingIcon,
           onChanged: onChanged,
           isEnabled: isEnabled,
+          value: value,
           disabledOnTap: disabledOnTap,
           changeCompletionDelay: changeCompletionDelay,
           width: width,
           isDialogExpanded: isDialogExpanded,
-          initialValue: initialValue,
         );
 
   const SearchableDropdown.future({
@@ -109,7 +109,6 @@ class SearchableDropdown<T> extends StatefulWidget {
     Duration? changeCompletionDelay,
     double? width,
     bool isDialogExpanded = true,
-    SearchableDropdownMenuItem<T>? initialValue,
   }) : this._(
           futureRequest: futureRequest,
           key: key,
@@ -128,7 +127,6 @@ class SearchableDropdown<T> extends StatefulWidget {
           changeCompletionDelay: changeCompletionDelay,
           width: width,
           isDialogExpanded: isDialogExpanded,
-          initialValue: initialValue,
         );
 
   const SearchableDropdown._({
@@ -153,14 +151,12 @@ class SearchableDropdown<T> extends StatefulWidget {
     this.changeCompletionDelay,
     this.width,
     this.isDialogExpanded = false,
-    this.initialValue,
   });
 
   //Is dropdown enabled
   final bool isEnabled;
 
-  //If its true dialog will be expanded all width of screen,
-  //otherwise dialog will be same size of dropdown.
+  //If its true dialog will be expanded all width of screen, otherwise dialog will be same size of dropdown.
   final bool isDialogExpanded;
 
   /// Height of dropdown's dialog, default: context.deviceHeight*0.3.
@@ -183,8 +179,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     String? searchKey,
   )? paginatedRequest;
 
-  /// Paginated request item count which returns in one page,
-  /// this value is using for knowledge about isDropdown has more item or not.
+  /// Paginated request item count which returns in one page, this value is using for knowledge about isDropdown has more item or not.
   final int? requestItemCount;
 
   /// Dropdown items.
@@ -217,12 +212,8 @@ class SearchableDropdown<T> extends StatefulWidget {
   /// Dropdown trailing icon.
   final Widget? leadingIcon;
 
-  /// Background decoration of dropdown,
-  /// i.e. with this you can wrap dropdown with Card.
+  /// Background decoration of dropdown, i.e. with this you can wrap dropdown with Card.
   final Widget Function(Widget child)? backgroundDecoration;
-
-  /// Initial selected value
-  final SearchableDropdownMenuItem<T>? initialValue;
 
   @override
   State<SearchableDropdown<T>> createState() => _SearchableDropdownState<T>();
@@ -240,9 +231,6 @@ class _SearchableDropdownState<T> extends State<SearchableDropdown<T>> {
       ..requestItemCount = widget.requestItemCount ?? 0
       ..items = widget.items
       ..searchedItems.value = widget.items;
-    if (widget.initialValue != null) {
-      controller.selectedItem.value = widget.initialValue;
-    }
     for (final element in widget.items ?? <SearchableDropdownMenuItem<T>>[]) {
       if (element.value == widget.value) {
         controller.selectedItem.value = element;
