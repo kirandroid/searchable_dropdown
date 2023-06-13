@@ -260,6 +260,7 @@ class _SearchableDropdownState<T> extends State<SearchableDropdown<T>> {
       trailingClearIcon: widget.trailingClearIcon,
       changeCompletionDelay: widget.changeCompletionDelay,
       isDialogExpanded: widget.isDialogExpanded,
+      value: widget.value,
     );
 
     return SizedBox(
@@ -289,6 +290,7 @@ class _DropDown<T> extends StatelessWidget {
     this.onChanged,
     this.searchHintText,
     this.changeCompletionDelay,
+    this.value,
   });
 
   final bool isEnabled;
@@ -310,6 +312,8 @@ class _DropDown<T> extends StatelessWidget {
   final Widget? leadingIcon;
   final Widget? hintText;
   final Widget? noRecordText;
+  //Initial value of dropdown
+  final T? value;
 
   @override
   Widget build(BuildContext context) {
@@ -338,6 +342,7 @@ class _DropDown<T> extends StatelessWidget {
                     child: _DropDownText(
                       controller: controller,
                       hintText: hintText,
+                      initialValue: value,
                     ),
                   ),
                 ],
@@ -455,21 +460,56 @@ class _DropDown<T> extends StatelessWidget {
   }
 }
 
+// class _DropDownText<T> extends StatelessWidget {
+//   const _DropDownText({
+//     required this.controller,
+//     this.hintText,
+//   });
+
+//   final SearchableDropdownController<T> controller;
+//   final Widget? hintText;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return ValueListenableBuilder(
+//       valueListenable: controller.selectedItem,
+//       builder: (context, SearchableDropdownMenuItem<T>? selectedItem, child) =>
+
+//           (selectedItem?.label != null
+//               ? Text(
+//                   selectedItem!.label,
+//                   maxLines: 1,
+//                   overflow: TextOverflow.fade,
+//                 )
+//               : hintText) ??
+//           const SizedBox.shrink(),
+//     );
+//   }
+// }
 class _DropDownText<T> extends StatelessWidget {
   const _DropDownText({
     required this.controller,
     this.hintText,
+    this.initialValue, // Add the initialValue parameter
   });
 
   final SearchableDropdownController<T> controller;
   final Widget? hintText;
+  final T? initialValue; // Add the initialValue field
 
   @override
   Widget build(BuildContext context) {
+    // Set the initial value of the controller if initialValue is provided
+    if (initialValue != null && controller.selectedItem.value == null) {
+      controller.selectedItem.value = SearchableDropdownMenuItem<T>(
+        value: initialValue,
+        label: initialValue.toString(),
+      );
+    }
+
     return ValueListenableBuilder(
       valueListenable: controller.selectedItem,
       builder: (context, SearchableDropdownMenuItem<T>? selectedItem, child) =>
-          selectedItem?.child ??
           (selectedItem?.label != null
               ? Text(
                   selectedItem!.label,
@@ -635,7 +675,7 @@ class _DropDownListView<T> extends StatelessWidget {
                             if (index < itemList.length) {
                               final item = itemList.elementAt(index);
                               return CustomInkwell(
-                                child: item.child,
+                                child: Text(item.label),
                                 onTap: () {
                                   controller.selectedItem.value = item;
                                   onChanged?.call(item.value);
