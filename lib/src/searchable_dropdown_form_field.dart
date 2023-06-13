@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:searchable_paginated_dropdown/searchable_paginated_dropdown.dart';
 
 @immutable
@@ -19,7 +18,7 @@ class SearchableDropdownFormField<T> extends FormField<T> {
     Widget Function(String?)? errorWidget,
     Widget Function(Widget)? backgroundDecoration,
     void Function(T?)? onChanged,
-    Widget? noRecordTex,
+    Widget? noRecordText,
     Widget? trailingIcon,
     Widget? trailingClearIcon,
     Widget? leadingIcon,
@@ -41,7 +40,7 @@ class SearchableDropdownFormField<T> extends FormField<T> {
           errorWidget: errorWidget,
           backgroundDecoration: backgroundDecoration,
           onChanged: onChanged,
-          noRecordText: noRecordTex,
+          noRecordText: noRecordText,
           trailingIcon: trailingIcon,
           trailingClearIcon: trailingClearIcon,
           leadingIcon: leadingIcon,
@@ -69,7 +68,7 @@ class SearchableDropdownFormField<T> extends FormField<T> {
     Widget Function(String?)? errorWidget,
     Widget Function(Widget)? backgroundDecoration,
     void Function(T?)? onChanged,
-    Widget? noRecordTex,
+    Widget? noRecordText,
     Widget? trailingIcon,
     Widget? trailingClearIcon,
     Widget? leadingIcon,
@@ -91,7 +90,7 @@ class SearchableDropdownFormField<T> extends FormField<T> {
           errorWidget: errorWidget,
           backgroundDecoration: backgroundDecoration,
           onChanged: onChanged,
-          noRecordText: noRecordTex,
+          noRecordText: noRecordText,
           trailingIcon: trailingIcon,
           trailingClearIcon: trailingClearIcon,
           leadingIcon: leadingIcon,
@@ -103,7 +102,8 @@ class SearchableDropdownFormField<T> extends FormField<T> {
         );
 
   SearchableDropdownFormField.future({
-    required Future<List<SearchableDropdownMenuItem<T>>?> Function()? futureRequest,
+    required Future<List<SearchableDropdownMenuItem<T>>?> Function()?
+        futureRequest,
     Key? key,
     void Function(T?)? onSaved,
     String? Function(T?)? validator,
@@ -116,7 +116,7 @@ class SearchableDropdownFormField<T> extends FormField<T> {
     Widget Function(String?)? errorWidget,
     Widget Function(Widget)? backgroundDecoration,
     void Function(T?)? onChanged,
-    Widget? noRecordTex,
+    Widget? noRecordText,
     Widget? trailingIcon,
     Widget? trailingClearIcon,
     Widget? leadingIcon,
@@ -138,7 +138,7 @@ class SearchableDropdownFormField<T> extends FormField<T> {
           errorWidget: errorWidget,
           backgroundDecoration: backgroundDecoration,
           onChanged: onChanged,
-          noRecordText: noRecordTex,
+          noRecordText: noRecordText,
           trailingIcon: trailingIcon,
           trailingClearIcon: trailingClearIcon,
           leadingIcon: leadingIcon,
@@ -266,10 +266,12 @@ class SearchableDropdownFormField<T> extends FormField<T> {
   //Is dropdown enabled
   final bool isEnabled;
 
-  //If its true dialog will be expanded all width of screen, otherwise dialog will be same size of dropdown.
+  //If its true dialog will be expanded all width of screen,
+  //otherwise dialog will be same size of dropdown.
   final bool isDialogExpanded;
 
-  /// Height of dropdown's dialog, default: MediaQuery.of(context).size.height*0.3.
+  /// Height of dropdown's dialog,
+  /// default: MediaQuery.of(context).size.height*0.3.
   final double? dropDownMaxHeight;
 
   /// Delay of dropdown's search callback after typing complete.
@@ -287,7 +289,8 @@ class SearchableDropdownFormField<T> extends FormField<T> {
     String? searchKey,
   )? paginatedRequest;
 
-  /// Paginated request item count which returns in one page, this value is using for knowledge about isDropdown has more item or not.
+  /// Paginated request item count which returns in one page,
+  /// this value is using for knowledge about isDropdown has more item or not.
   final int? requestItemCount;
 
   /// Dropdown items.
@@ -323,6 +326,7 @@ class SearchableDropdownFormField<T> extends FormField<T> {
   /// Validation Error widget which is shown under dropdown.
   final Widget Function(String? errorText)? errorWidget;
 
-  /// Background decoration of dropdown, i.e. with this you can wrap dropdown with Card.
+  /// Background decoration of dropdown,
+  /// i.e. with this you can wrap dropdown with Card.
   final Widget Function(Widget child)? backgroundDecoration;
 }

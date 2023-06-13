@@ -1,6 +1,5 @@
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
-
 import 'package:searchable_paginated_dropdown/src/utils/custom_inkwell.dart';
 
 class CustomSearchBar extends StatelessWidget {
@@ -16,7 +15,8 @@ class CustomSearchBar extends StatelessWidget {
     this.style,
   });
 
-  /// Klavyeden değer girme işlemi bittikten kaç milisaniye sonra on change complete fonksiyonunun tetikleneceğini belirler.
+  /// Klavyeden değer girme işlemi bittikten kaç milisaniye
+  /// sonra on change complete fonksiyonunun tetikleneceğini belirler.
   final bool isOutlined;
   final Duration changeCompletionDelay;
   final FocusNode? focusNode;
@@ -25,7 +25,8 @@ class CustomSearchBar extends StatelessWidget {
   final TextStyle? style;
 
   /// Cancelable operation ile klavyeden değer girme işlemi kontrol edilir.
-  /// Verilen delay içerisinde klavyeden yeni bir giriş olmaz ise bu fonksiyon tetiklenir.
+  /// Verilen delay içerisinde klavyeden yeni
+  /// bir giriş olmaz ise bu fonksiyon tetiklenir.
   final void Function(String value)? onChangeComplete;
   final Widget? leadingIcon;
 
